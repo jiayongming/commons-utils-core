@@ -11,12 +11,6 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public final class BigDecimalUtils {
 
-
-
-
-
-
-	
 	private BigDecimalUtils() {
 		throw new AssertionError(BigDecimalUtils.class.getName()+" all methods is static so no instance for you ;") ;
 	}
