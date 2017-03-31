@@ -1,5 +1,6 @@
 package com.commons.util;
 
+import com.google.common.collect.Maps;
 import lombok.extern.log4j.Log4j2;
 
 import java.io.File;
@@ -15,7 +16,7 @@ public class DefaultConfig {
     /*获取CLASS_PATH*/
     public static String CLASS_PATH = "";
 
-    public static Map<String, String> INIT_MAP = new HashMap();
+    public static Map<String, String> INIT_MAP = Maps.newHashMap() ;
 
     static {
         ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
@@ -28,7 +29,7 @@ public class DefaultConfig {
             //获取非jar包内的配置信息
             try {
                 String config_file = new File(contextClassLoader.getResource("default.properties").toURI()).getPath();
-                Map<String, String> CONFIG_MAP = PropertiesUtil.GetAllProperties(config_file);
+                Map<String, String> CONFIG_MAP = PropertiesUtil.getAllProperties(config_file);
                 INIT_MAP.putAll(CONFIG_MAP);
             } catch (Exception e) {
             }

@@ -41,8 +41,8 @@ public final class RandomUtil {
      * @param length 随机字符串长度
      * @return 随机字符串
      */
-    public static String String(int length) {
-        StringBuffer sb = new StringBuffer();
+    public static String string(int length) {
+        StringBuilder sb = new StringBuilder();
         Random random = new Random();
         for (int i = 0; i < length; i++) {
             sb.append(ALLCHAR.charAt(random.nextInt(ALLCHAR.length())));
@@ -56,8 +56,8 @@ public final class RandomUtil {
      * @param length 随机字符串长度
      * @return 随机字符串
      */
-    public static String MixString(int length) {
-        StringBuffer sb = new StringBuffer();
+    public static String mixString(int length) {
+        StringBuilder sb = new StringBuilder();
         Random random = new Random();
         for (int i = 0; i < length; i++) {
             sb.append(ALLCHAR.charAt(random.nextInt(LETTERCHAR.length())));
@@ -72,7 +72,7 @@ public final class RandomUtil {
      * @return 随机字符串
      */
     public static String lowerString(int length) {
-        return MixString(length).toLowerCase();
+        return mixString(length).toLowerCase();
     }
 
     /**
@@ -82,7 +82,7 @@ public final class RandomUtil {
      * @return 随机字符串
      */
     public static String upperString(int length) {
-        return MixString(length).toUpperCase();
+        return mixString(length).toUpperCase();
     }
 
     /**

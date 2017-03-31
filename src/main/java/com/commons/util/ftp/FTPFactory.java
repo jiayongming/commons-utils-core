@@ -22,7 +22,7 @@ public class FTPFactory {
             String remoteDir = DefaultConfig.get(name + ".remoteDir");
             String localDir = DefaultConfig.get(name + ".localDir");
             String Encoding = DefaultConfig.get(name + ".Encoding");
-            boolean passiveMode = new Boolean(DefaultConfig.get(name + ".passiveMode")).booleanValue();
+            boolean passiveMode = Boolean.parseBoolean(DefaultConfig.get(name + ".passiveMode"));
             FTPVo vo = new FTPVo(host, port, username, password, remoteDir, localDir, Encoding, passiveMode);
             return new FTPUtilImpl(vo);
         } else {

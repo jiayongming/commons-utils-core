@@ -1,6 +1,7 @@
 package com.commons.util;
 
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -43,7 +44,7 @@ public final class EmailUtil {
     public EmailUtil(boolean debug) {
 
         this.mailHost = DefaultConfig.get("mail.smtp.host");
-        this.port = Integer.valueOf(DefaultConfig.get("mail.smtp.port"));
+        this.port = NumberUtils.toInt(DefaultConfig.get("mail.smtp.port"));
         this.auth = Boolean.parseBoolean(DefaultConfig.get("mail.smtp.auth"));
         this.sender_username = DefaultConfig.get("mail.sender.username");
         this.sender_password = DefaultConfig.get("mail.sender.password");
@@ -81,9 +82,8 @@ public final class EmailUtil {
             // 邮件主题
             message.setSubject(subject);
 
-            String content = sendHtml.toString();
             // 邮件内容,也可以使纯文本"text/plain"
-            message.setContent(content, "text/html;charset=UTF-8");
+            message.setContent(sendHtml, "text/html;charset=UTF-8");
 
             // 保存邮件
             message.saveChanges();

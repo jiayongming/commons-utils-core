@@ -154,7 +154,7 @@ public final class ChinesUtil {
     /**
      * 获取一个字符串中中文字符的个数
      */
-    public final static int ChineseLength(String str) {
+    public static int chineseLength(String str) {
         Pattern p = Pattern.compile("[\u4E00-\u9FA5]+");
         Matcher m = p.matcher(str);
         int     i = 0;

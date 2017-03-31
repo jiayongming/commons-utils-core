@@ -3,7 +3,7 @@ package com.commons.util;
 /**
  * 一些常用的常量
  */
-public final class Constant {
+interface Constant {
     String AMPERSAND = "&";
     String AND = "and";
     String AT = "@";

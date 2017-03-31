@@ -1,5 +1,6 @@
 package com.commons.model;
 
+import com.google.common.base.Objects;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -91,7 +92,7 @@ public final class PageBean<T> implements Serializable{
 	public Integer getEnd() {
 		// 非末页时的结束查询点
 		int end = currentPage * pageSize;
-		if (currentPage == this.getPageNum()) {
+		if (Objects.equal(currentPage,this.getPageNum())) {
 			int remainder = this.getTotalCount() % pageSize;
 			if (remainder > 0) {
 				// 最后一页剩余的记录数（包括只有1页的情况）

@@ -299,7 +299,7 @@ public final class StringUtil {
      * @param str 需要处理的字符串
      * @return 处理后的字符串
      */
-    public  static String Half2Full(String str){
+    public  static String half2Full(String str){
         if(isEmpty(str)){
             return "";
         }
@@ -387,13 +387,13 @@ public final class StringUtil {
     /**
      * 字符串相似度比较(速度较快)
      */
-    public  static double SimilarityRatio(String str1, String str2) {
+    public  static double similarityRatio(String str1, String str2) {
         str1 = StringUtil.trimPunct(str1);
         str2 = StringUtil.trimPunct(str2);
         if (str1.length() > str2.length()) {
-            return StringImpl.SimilarityRatio(str1, str2);
+            return StringImpl.similarityRatio(str1, str2);
         } else {
-            return StringImpl.SimilarityRatio(str2, str1);
+            return StringImpl.similarityRatio(str2, str1);
         }
 
     }
@@ -405,9 +405,9 @@ public final class StringUtil {
         str1 = StringUtil.trimPunct(str1);
         str2 = StringUtil.trimPunct(str2);
         if (str1.length() > str2.length()) {
-            return StringImpl.SimilarDegree(str1, str2);
+            return StringImpl.similarDegree(str1, str2);
         } else {
-            return StringImpl.SimilarDegree(str2, str1);
+            return StringImpl.similarDegree(str2, str1);
         }
     }
 

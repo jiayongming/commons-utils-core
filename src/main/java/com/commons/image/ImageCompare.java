@@ -20,30 +20,28 @@ public final class ImageCompare {
     public static String[][] getPX(File file) {
         int[] rgb = new int[3];
 
-        BufferedImage bi = null;
         try {
-            bi = ImageIO.read(file);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            BufferedImage bi = ImageIO.read(file);
+            int width = bi.getWidth();
+            int height = bi.getHeight();
+            int minx = bi.getMinX();
+            int miny = bi.getMinY();
+            String[][] list = new String[width][height];
+            for (int i = minx; i < width; i++) {
+                for (int j = miny; j < height; j++) {
+                    int pixel = bi.getRGB(i, j);
+                    rgb[0] = (pixel & 0xff0000) >> 16;
+                    rgb[1] = (pixel & 0xff00) >> 8;
+                    rgb[2] = (pixel & 0xff);
+                    list[i][j] = rgb[0] + "," + rgb[1] + "," + rgb[2];
 
-        int width = bi.getWidth();
-        int height = bi.getHeight();
-        int minx = bi.getMinX();
-        int miny = bi.getMinY();
-        String[][] list = new String[width][height];
-        for (int i = minx; i < width; i++) {
-            for (int j = miny; j < height; j++) {
-                int pixel = bi.getRGB(i, j);
-                rgb[0] = (pixel & 0xff0000) >> 16;
-                rgb[1] = (pixel & 0xff00) >> 8;
-                rgb[2] = (pixel & 0xff);
-                list[i][j] = rgb[0] + "," + rgb[1] + "," + rgb[2];
-
+                }
             }
+            return list;
+        } catch (Exception e) {
+            log.error("getPX error:",e);
         }
-        return list;
-
+        return null ;
     }
 
     /**

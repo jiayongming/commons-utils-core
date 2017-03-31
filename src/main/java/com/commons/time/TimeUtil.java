@@ -842,8 +842,8 @@ public final class TimeUtil {
                         int day = (Math.abs(second) - Math.abs(toDaySecond)) / DaySecond;
                         int remainder = (Math.abs(second) - Math.abs(toDaySecond)) % DaySecond;
                         cal.setTime(day(dayEnd, -1));
-                        cal.add(Calendar.DAY_OF_YEAR, Integer.valueOf("-" + day));
-                        cal.add(Calendar.SECOND, Integer.valueOf("-" + remainder));
+                        cal.add(Calendar.DAY_OF_YEAR, Integer.parseInt("-" + day));
+                        cal.add(Calendar.SECOND, Integer.parseInt("-" + remainder));
                     } else {
                         cal.add(Calendar.SECOND, second);
                     }

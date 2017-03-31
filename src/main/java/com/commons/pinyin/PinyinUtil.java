@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.util.Enumeration;
 import java.util.Properties;
 
+import lombok.Cleanup;
 import lombok.extern.log4j.Log4j2;
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
@@ -28,7 +29,7 @@ public final class PinyinUtil {
 	static {
 		polyphone = new Properties();
 		try {
-			InputStreamReader in = new InputStreamReader(Object.class.getResourceAsStream("/polyphone.properties"), "UTF-8");
+			@Cleanup InputStreamReader in = new InputStreamReader(Object.class.getResourceAsStream("/polyphone.properties"), "UTF-8");
 			polyphone.load(in);
 		} catch (IOException e) {
 			e.printStackTrace();

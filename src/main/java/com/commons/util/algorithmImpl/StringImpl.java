@@ -65,7 +65,7 @@ public class StringImpl {
      * @return 俩个字符串的相似度
      * <p>summary</p>:较长的字符串放到前面有助于提交效率
      */
-    public static double SimilarDegree(String strA, String strB) {
+    public static double similarDegree(String strA, String strB) {
         String newStrA = removeSign(strA);
         String newStrB = removeSign(strB);
         int temp = Math.max(newStrA.length(), newStrB.length());
@@ -127,7 +127,7 @@ public class StringImpl {
      * @param target
      * @return
      */
-    public static double SimilarityRatio(String str, String target) {
+    public static double similarityRatio(String str, String target) {
         return 1 - (double) compare(str, target) / Math.max(str.length(), target.length());
     }
 

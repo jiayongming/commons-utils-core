@@ -1,6 +1,7 @@
 package com.commons.image;
 
 import com.commons.files.FileUtil;
+import lombok.Cleanup;
 import lombok.extern.log4j.Log4j2;
 
 import javax.imageio.ImageIO;
@@ -402,30 +403,17 @@ public final class OperateImage {
      * @throws IOException
      */
     public static void mergeBothImage(String negativeImagePath, String additionImagePath, String iamgeFromat, int x, int y, String toPath) throws IOException {
-        InputStream is = null;
-        InputStream is2 = null;
-        OutputStream os = null;
         try {
-            is = new FileInputStream(negativeImagePath);
-            is2 = new FileInputStream(additionImagePath);
+            @Cleanup InputStream is = new FileInputStream(negativeImagePath);
+            @Cleanup InputStream is2 = new FileInputStream(additionImagePath);
             BufferedImage image = ImageIO.read(is);
             BufferedImage image2 = ImageIO.read(is2);
             Graphics g = image.getGraphics();
             g.drawImage(image2, x, y, null);
-            os = new FileOutputStream(toPath);
+            @Cleanup OutputStream os = new FileOutputStream(toPath);
             ImageIO.write(image, iamgeFromat, os);//写图片
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if (os != null) {
-                os.close();
-            }
-            if (is2 != null) {
-                is2.close();
-            }
-            if (is != null) {
-                is.close();
-            }
         }
     }
 

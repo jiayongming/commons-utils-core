@@ -11,7 +11,7 @@ import java.util.Date;
 public class FileAttr {
 
     private String fileName;
-    private Date ModifyTime;
+    private Date modifyTime;
     private Long size;
 
 }

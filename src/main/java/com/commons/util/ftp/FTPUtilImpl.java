@@ -356,10 +356,4 @@ public class FTPUtilImpl implements FTPUtil {
         }
     }
 
-    private String getRelativePath(File path) {
-        String path1 = path.getPath();
-        String path2 = path.getAbsolutePath();
-        return null;
-
-    }
 }
