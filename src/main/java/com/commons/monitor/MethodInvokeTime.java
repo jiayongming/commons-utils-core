@@ -21,11 +21,9 @@ public class MethodInvokeTime implements MethodInterceptor {
 	public Object invoke(MethodInvocation invocation) throws Throwable {
 		// 用StopWatch 计时
 		StopWatch clock = new StopWatch();
-
 		// 计时开始
 		clock.start(); 
 		
-		Object result = null;
 		// 监控的类名
 		String className = invocation.getMethod().getDeclaringClass().getName();
 		// 监控的方法名
@@ -34,6 +32,7 @@ public class MethodInvokeTime implements MethodInterceptor {
 		sb.append( "method[" ) ;
 		sb.append( methodName ) ;
 		sb.append( "(" ) ;
+		Object result ;
 		try {
 			// 这个是我们监控的bean的执行并返回结果
 			result = invocation.proceed();
@@ -60,14 +59,16 @@ public class MethodInvokeTime implements MethodInterceptor {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0, len = objs.length; i < len; i++) {
 			if (objs[i] instanceof String) {
-				sb.append("String类型：" + objs[i].toString());
+				sb.append("String类型：") ;
+				sb.append(objs[i].toString()) ;
 			} else if (objs[i] instanceof Map) {
-				Map<String, Object> hashMap = (Map<String, Object>) objs[i];
-				Map<String, Object> map = hashMap;
-				Set<String> set = (Set<String>) map.keySet();
+				Map<String, Object> map = (Map<String, Object>) objs[i];
+				final Set<String> set = map.keySet();
 				sb.append("Map类型：");
 				for (String str : set) {
-					sb.append(str + "=" + map.get(str));
+					sb.append(str);
+					sb.append("=") ;
+					sb.append(map.get(str)) ;
 				}
 			} else if (objs[i] instanceof Integer) {
 				sb.append("整数类型：");

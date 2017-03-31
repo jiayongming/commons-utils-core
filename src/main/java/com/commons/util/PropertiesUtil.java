@@ -20,7 +20,7 @@ public final class PropertiesUtil {
      * @param key key
      * @return 返回value
      */
-    public final static String key(String key) {
+    public static String key(String key) {
         return System.getProperty(key);
     }
 
@@ -30,7 +30,7 @@ public final class PropertiesUtil {
      * @param filePath 属性文件
      * @param key      需要读取的属性
      */
-    public final static String GetValueByKey(String filePath, String key) {
+    public static String getValueByKey(String filePath, String key) {
         Properties pps = new Properties();
         try (InputStream in = new BufferedInputStream(new FileInputStream(filePath))) {
             pps.load(in);
@@ -41,8 +41,7 @@ public final class PropertiesUtil {
         }
     }
 
-    public final static Map<String, String> properties(InputStream in) {
-        Map<String, String> map = new HashMap<>();
+    public static Map<String, String> properties(InputStream in) {
         Properties pps = new Properties();
         try {
             pps.load(in);
@@ -50,6 +49,7 @@ public final class PropertiesUtil {
             log.error("load properties error:" + e.getMessage());
         }
         Enumeration en = pps.propertyNames();
+        Map<String, String> map = new HashMap<>();
         while (en.hasMoreElements()) {
             String strKey = (String) en.nextElement();
             String strValue = pps.getProperty(strKey);
@@ -64,7 +64,7 @@ public final class PropertiesUtil {
      * @param filePath 读取的属性文件
      * @return 返回所有的属性 key:value<>key:value
      */
-    public final static Map<String, String> GetAllProperties(String filePath) throws IOException {
+    public static Map<String, String> GetAllProperties(String filePath) throws IOException {
         Map<String, String> map = new HashMap<>();
         Properties pps = new Properties();
         try (InputStream in = new BufferedInputStream(new FileInputStream(filePath))) {
@@ -82,7 +82,7 @@ public final class PropertiesUtil {
      * @param pKey     属性名称
      * @param pValue   属性值
      */
-    public final static void WriteProperties(String filePath, String pKey, String pValue) throws IOException {
+    public static void writeProperties(String filePath, String pKey, String pValue) throws IOException {
         Properties props = new Properties();
 
         props.load(new FileInputStream(filePath));

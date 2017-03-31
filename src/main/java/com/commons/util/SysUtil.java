@@ -167,4 +167,8 @@ public class SysUtil {
         System.getProperties().put(HTTP_PROXY_PORT, port);
     }
 
+    public static void main(String[] args) {
+        log.debug(HOST_IP);
+    }
+
 }

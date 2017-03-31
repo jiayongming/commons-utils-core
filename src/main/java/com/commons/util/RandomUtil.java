@@ -71,7 +71,7 @@ public final class RandomUtil {
      * @param length 随机字符串长度
      * @return 随机字符串
      */
-    public static String LowerString(int length) {
+    public static String lowerString(int length) {
         return MixString(length).toLowerCase();
     }
 
@@ -81,7 +81,7 @@ public final class RandomUtil {
      * @param length 随机字符串长度
      * @return 随机字符串
      */
-    public static String UpperString(int length) {
+    public static String upperString(int length) {
         return MixString(length).toUpperCase();
     }
 
@@ -91,7 +91,7 @@ public final class RandomUtil {
      * @param length 字符串长度
      * @return 纯0字符串
      */
-    public static String ZeroString(int length) {
+    public static String zeroString(int length) {
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < length; i++) {
             sb.append('0');
@@ -107,10 +107,10 @@ public final class RandomUtil {
      * @return 定长的字符串
      */
     public static String toFixdLengthString(long num, int fixdlenth) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         String strNum = String.valueOf(num);
         if (fixdlenth - strNum.length() >= 0) {
-            sb.append(ZeroString(fixdlenth - strNum.length()));
+            sb.append(zeroString(fixdlenth - strNum.length()));
         } else {
             throw new RuntimeException("将数字" +
                     num + "转化为长度为" + fixdlenth + "的字符串发生异常！");
@@ -127,10 +127,10 @@ public final class RandomUtil {
      * @return 定长的字符串
      */
     public static String toFixdLengthString(int num, int fixdlenth) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         String strNum = String.valueOf(num);
         if (fixdlenth - strNum.length() >= 0) {
-            sb.append(ZeroString(fixdlenth - strNum.length()));
+            sb.append(zeroString(fixdlenth - strNum.length()));
         } else {
             throw new RuntimeException("将数字" +
                     num + "转化为长度为" + fixdlenth + "的字符串发生异常！");
@@ -176,7 +176,7 @@ public final class RandomUtil {
      * @return
      */
     private static String strMultiplication(String str, int multiplication) {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         for (int i = 0; i < multiplication; i++) {
             buffer.append(str);
         }
