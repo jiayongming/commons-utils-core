@@ -1,10 +1,5 @@
 package com.commons.pinyin;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Enumeration;
-import java.util.Properties;
-
 import lombok.Cleanup;
 import lombok.extern.log4j.Log4j2;
 import net.sourceforge.pinyin4j.PinyinHelper;
@@ -13,8 +8,12 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
-
 import org.apache.commons.lang3.StringUtils;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Enumeration;
+import java.util.Properties;
 
 /**
  * @author jiayongming 有关汉语拼音的工具类
@@ -117,7 +116,7 @@ public final class PinyinUtil {
 	 * @return String
 	 */
 	public static String getCnASCII(String cnStr) {
-		StringBuffer strBuf = new StringBuffer();
+		StringBuilder strBuf = new StringBuilder();
 		// 将字符串转换成字节序列
 		byte[] bGBK = cnStr.getBytes();
 		for (int i = 0; i < bGBK.length; i++) {
