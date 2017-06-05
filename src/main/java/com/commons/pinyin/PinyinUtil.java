@@ -60,29 +60,28 @@ public final class PinyinUtil {
 		}
 
 		char[] t1 = hanzi.toCharArray();
-		String[] t2 = new String[t1.length];
 		// 设置汉字拼音输出的格式
 		HanyuPinyinOutputFormat t3 = new HanyuPinyinOutputFormat();
 		t3.setCaseType(HanyuPinyinCaseType.LOWERCASE);
 		t3.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
 		t3.setVCharType(HanyuPinyinVCharType.WITH_V);
-		String t4 = "";
+		StringBuilder t4 = new StringBuilder();
 		int t0 = t1.length;
 		try {
 			for (int i = 0; i < t0; i++) {
 				// 判断能否为汉字字符
 				if (Character.toString(t1[i]).matches("[\\u4E00-\\u9FA5]+")) {
-					t2 = PinyinHelper.toHanyuPinyinStringArray(t1[i], t3);// 将汉字的几种全拼都存到t2数组中
-					t4 += t2[0];// 取出该汉字全拼的第一种读音并连接到字符串t4后
+					String[] t2 = PinyinHelper.toHanyuPinyinStringArray(t1[i], t3);// 将汉字的几种全拼都存到t2数组中
+					t4.append(t2[0]) ;// 取出该汉字全拼的第一种读音并连接到字符串t4后
 				} else {
 					// 如果不是汉字字符，间接取出字符并连接到字符串t4后
-					t4 += Character.toString(t1[i]);
+					t4.append(String.valueOf(t1[i])) ;
 				}
 			}
 		} catch (BadHanyuPinyinOutputFormatCombination e) {
 			e.printStackTrace();
 		}
-		String result = StringUtils.substring(t4, 0, 1);
+		String result = StringUtils.substring(t4.toString(), 0, 1);
 		if (isLower) {
 			return result;
 		}
@@ -96,18 +95,18 @@ public final class PinyinUtil {
 	 * @return String
 	 */
 	public static String getPinYinHeadChar(String str) {
-		String convert = "";
+		StringBuilder convert = new StringBuilder();
 		for (int j = 0; j < str.length(); j++) {
 			char word = str.charAt(j);
 			// 提取汉字的首字母
 			String[] pinyinArray = PinyinHelper.toHanyuPinyinStringArray(word);
 			if (pinyinArray != null) {
-				convert += pinyinArray[0].charAt(0);
+				convert.append(pinyinArray[0].charAt(0)) ;
 			} else {
-				convert += word;
+				convert.append(word);
 			}
 		}
-		return convert;
+		return convert.toString();
 	}
 	/**
 	 * 将字符串转换成ASCII码
