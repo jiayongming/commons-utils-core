@@ -336,6 +336,32 @@
                     <server>tomcat</server>
                 </configuration>
             </plugin>
+            <!-- 打包和发布 -->
+            <plugin>
+                <groupId>external.atlassian.jgitflow</groupId>
+                <artifactId>jgitflow-maven-plugin</artifactId>
+                <version>1.0-m5.1</version>
+                <configuration>
+                    <pushReleases>true</pushReleases>
+                    <allowUntracked>true</allowUntracked>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>target/lib</outputDirectory>  <!--  拷贝所以依赖存放位置 -->
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
         </plugins>
     </build>
