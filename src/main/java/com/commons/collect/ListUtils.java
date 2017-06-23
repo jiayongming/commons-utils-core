@@ -3,13 +3,13 @@ package com.commons.collect;
 import com.commons.model.PageBean;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Set;
 
-@Log4j2
+@Slf4j
 public final class ListUtils {
 
 	private ListUtils() { }
@@ -39,8 +39,8 @@ public final class ListUtils {
 		
 		List<Integer> removeRepeat = removeRepeat(ints);
 		final List<Integer> sorter = sorter(removeRepeat, 2, 2);
-		log.info(removeRepeat);
-		log.info(sorter);
+		log.info("removeRepeat:{}" ,removeRepeat);
+		log.info("sorter{}" ,sorter);
 	}
 
 	/**

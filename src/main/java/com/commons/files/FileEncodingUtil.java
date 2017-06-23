@@ -1,7 +1,7 @@
 package com.commons.files;
 
 import com.commons.util.Valid;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 文件编码相关的一些工具函数
  */
-@Log4j2
+@Slf4j
 public class FileEncodingUtil {
     /**
      * 把指定文件或目录转换成指定的编码

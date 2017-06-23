@@ -1,6 +1,6 @@
 package com.commons.files;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.nio.ByteBuffer;
@@ -9,7 +9,7 @@ import java.nio.channels.FileChannel;
 /**
  * 封装了集中常用的文件读的方法
  */
-@Log4j2
+@Slf4j
 public class FileReadImpl {
 
     /**

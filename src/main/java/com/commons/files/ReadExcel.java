@@ -1,7 +1,7 @@
 package com.commons.files;
 
 import com.google.common.collect.Maps;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -25,7 +25,7 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Set;
 
-@Log4j2
+@Slf4j
 public class ReadExcel {
 
     @Test
@@ -65,7 +65,7 @@ public class ReadExcel {
     public static void writeXML(Map<String, String> banksInfoMap) throws Exception {
 
 
-        log.info(banksInfoMap.size());
+        log.info("banksInfoMap size :{}",banksInfoMap.size());
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document doc = builder.newDocument();
@@ -80,6 +80,7 @@ public class ReadExcel {
         map.setAttribute("value-type", "java.lang.String");
 
         Set<String> keySet = banksInfoMap.keySet();
+
         int i = 0;
         for (String key : keySet) {
             Object value = banksInfoMap.get(key);
@@ -89,7 +90,7 @@ public class ReadExcel {
             map.appendChild(entry);
             i++;
         }
-        log.info(i);
+
         // 按顺序添加各个节点
         doc.appendChild(bean);
         bean.appendChild(constructor_arg);

@@ -1,6 +1,6 @@
 package com.commons.files;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.mozilla.intl.chardet.nsDetector;
 import org.mozilla.intl.chardet.nsICharsetDetectionObserver;
 
@@ -9,7 +9,7 @@ import java.io.*;
 /**
  * 文件相关的算法实现
  */
-@Log4j2
+@Slf4j
 public class FileImpl {
 
 

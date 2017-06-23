@@ -2,7 +2,7 @@ package com.commons.util;
 
 import com.google.common.collect.Maps;
 import lombok.Cleanup;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.util.Enumeration;
@@ -13,7 +13,7 @@ import java.util.Properties;
 /**
  * 提供一些常用的属性文件相关的方法
  */
-@Log4j2
+@Slf4j
 public final class PropertiesUtil {
 
     /**

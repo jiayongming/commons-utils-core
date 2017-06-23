@@ -10,10 +10,11 @@
 
     <name>${project.artifactId}</name>
     <description>commons-utils-core</description>
-    <url>https://github.com/jiayongming/jym-repos/tree/master/commons-utils-core</url>
+    <url>git@github.com:jiayongming/commons-utils-core.git</url>
 
     <developers>
         <developer>
+            <id>1</id>
             <name>jiayongming</name>
             <email>jiayongming@msn.com</email>
             <url>https://github.com/jiayongming</url>
@@ -225,21 +226,12 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>2.7</version>
-            <optional>true</optional>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.7</version>
-            <optional>true</optional>
-        </dependency>
-
 
         <!-- https://mvnrepository.com/artifact/me.hao0/common -->
         <dependency>
@@ -292,6 +284,14 @@
 
     <build>
         <finalName>commons-utils-core</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>${patch.path}</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -301,6 +301,7 @@
                     <encoding>utf-8</encoding>
                 </configuration>
             </plugin>
+
             <plugin>
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <version>1.4.1</version>
@@ -324,19 +325,8 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>tomcat-maven-plugin</artifactId>
-                <configuration>
-                    <path>/</path>
-                    <port>80</port>
-                    <charset>UTF-8</charset>
-                    <uriEncoding>UTF-8</uriEncoding>
-                    <url>http://localhost/manager/html</url>
-                    <server>tomcat</server>
-                </configuration>
-            </plugin>
-            <!-- 打包和发布 -->
+
+            <!-- git打包和发布 -->
             <plugin>
                 <groupId>external.atlassian.jgitflow</groupId>
                 <artifactId>jgitflow-maven-plugin</artifactId>
@@ -346,6 +336,7 @@
                     <allowUntracked>true</allowUntracked>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -357,10 +348,44 @@
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>target/lib</outputDirectory>  <!--  拷贝所以依赖存放位置 -->
+                            <outputDirectory>target/lib</outputDirectory>  <!--  拷贝所有依赖存放位置 -->
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/main/assembly/distribution.xml</descriptor> <!-- 自定义打包的配置文件 -->
+                    </descriptors>
+                    <appendAssemblyId>false</appendAssemblyId> <!-- 设为 FALSE, 防止 WAR 包名加入 assembly.xml 中的 ID -->
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>  <!-- ID 标识，命名随意 -->
+                        <phase>package</phase> <!-- 绑定到 PACKAGE 生命周期阶段 -->
+                        <goals>
+                            <goal>single</goal> <!-- 在 PACKAGE 生命周期阶段仅执行一次 -->
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>-Xms256m -Xmx512m</argLine>
+                    <testFailureIgnore>false</testFailureIgnore>
+                    <skip>false</skip>
+                </configuration>
             </plugin>
 
         </plugins>

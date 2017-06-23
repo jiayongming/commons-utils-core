@@ -1,9 +1,9 @@
 package com.commons.compare;
 
 import lombok.SneakyThrows;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
-@Log4j2
+@Slf4j
 public class VersionCompare {
 	/**
 	 * 比较版本号的大小,前者大则返回一个正数,后者大返回一个负数,相等则返回0
@@ -34,7 +34,7 @@ public class VersionCompare {
 	@SneakyThrows
 	public static void main(String[] args) {
 		int compareVersion = compareVersion("9.9.9.9", "10.8.8.6");
-		log.info(compareVersion);
+		log.info("compareVersion :{}",compareVersion);
 	}
 
 }

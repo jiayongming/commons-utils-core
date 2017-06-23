@@ -1,7 +1,7 @@
 package com.commons.util;
 
 import com.sun.management.OperatingSystemMXBean;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.management.ManagementFactory;
 import java.net.Inet4Address;
@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * 提供些获取系统信息相关的工具方法
  */
-@Log4j2
+@Slf4j
 public class SysUtil {
 
     /**

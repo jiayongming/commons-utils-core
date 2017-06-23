@@ -3,7 +3,7 @@ package com.commons.files;
 import com.commons.util.RegUtil;
 import com.commons.util.SysUtil;
 import com.commons.util.Valid;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.math.BigInteger;
@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * 封装了些文件相关的操作
  */
-@Log4j2
+@Slf4j
 public final class FileUtil {
     /**
      * Buffer的大小

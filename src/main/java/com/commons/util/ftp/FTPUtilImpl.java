@@ -5,7 +5,7 @@ import com.commons.model.FTPLog;
 import com.commons.model.FTPVo;
 import com.commons.model.FileAttr;
 import com.commons.util.Valid;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 /**
  * FTP工具类的实现
  */
-@Log4j2
+@Slf4j
 public class FTPUtilImpl implements FTPUtil {
     private FTPClient client;
     private FTPVo vo;
@@ -67,7 +67,7 @@ public class FTPUtilImpl implements FTPUtil {
         ftpLog.setRemoteFile("");
         ftpLog.setReplyCode(replyCode);
         ftpLog.setReplyCodeDesc(FTPConstant.REPLYCODE.get(replyCode));
-        log.info(ftpLog);
+        log.info("ftpLog :{}" ,ftpLog);
         return FTPReply.isPositiveCompletion(replyCode);
     }
 
@@ -80,7 +80,7 @@ public class FTPUtilImpl implements FTPUtil {
         ftpLog.setRemoteFile(remoteFile);
         ftpLog.setReplyCode(replyCode);
         ftpLog.setReplyCodeDesc(FTPConstant.REPLYCODE.get(replyCode));
-        log.info(ftpLog);
+        log.info("ftpLog :{}" ,ftpLog);
         return FTPReply.isPositiveCompletion(replyCode);
     }
 

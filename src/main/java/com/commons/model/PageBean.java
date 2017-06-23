@@ -4,7 +4,7 @@ import com.google.common.base.Objects;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,8 +14,8 @@ import java.util.List;
  * 分页工具类
  * @param <T>
  */
+@Slf4j
 @ToString
-@Log4j2
 public final class PageBean<T> implements Serializable{
 	
 	private static final long serialVersionUID = -1481305626367150084L;

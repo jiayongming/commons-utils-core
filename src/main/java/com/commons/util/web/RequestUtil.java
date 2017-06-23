@@ -1,6 +1,6 @@
 package com.commons.util.web;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.Cookie;
@@ -9,11 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
 
-
 /**
  *
  */
-@Log4j2
+@Slf4j
 public class RequestUtil {
 
     public static final String ENCODING = "UTF-8";

@@ -1,16 +1,15 @@
 package com.commons.util;
 
 import com.google.common.collect.Maps;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
-import java.util.HashMap;
 import java.util.Map;
 
-@Log4j2
+@Slf4j
 public class DefaultConfig {
 
     /*获取CLASS_PATH*/

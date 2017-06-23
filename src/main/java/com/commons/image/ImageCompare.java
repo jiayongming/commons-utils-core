@@ -1,6 +1,6 @@
 package com.commons.image;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -9,7 +9,7 @@ import java.io.File;
 /**
  * 图片比较
  */
-@Log4j2
+@Slf4j
 public final class ImageCompare {
     /**
      * 改变成二进制码

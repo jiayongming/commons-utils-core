@@ -1,6 +1,6 @@
 package com.commons.util;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import javax.activation.DataHandler;
@@ -8,14 +8,14 @@ import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.*;
-import java.io.*;
+import java.io.File;
 import java.util.Properties;
 
 /**
  * Description
  * 封装Email相关的操作
  */
-@Log4j2
+@Slf4j
 public final class EmailUtil {
 
 

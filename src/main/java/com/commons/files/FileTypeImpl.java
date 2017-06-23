@@ -1,7 +1,7 @@
 package com.commons.files;
 
 import com.google.common.collect.Maps;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * 利用文件头来实现的一些文件类型的方法封装
  */
-@Log4j2
+@Slf4j
 public class FileTypeImpl {
 
     public final static Map<String,String> FILE_TYPE_MAP = Maps.newHashMapWithExpectedSize(32);

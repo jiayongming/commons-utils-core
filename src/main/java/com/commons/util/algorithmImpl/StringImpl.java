@@ -2,14 +2,14 @@ package com.commons.util.algorithmImpl;
 
 import com.commons.util.CharsetUtil;
 import com.commons.util.SysUtil;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.UnsupportedEncodingException;
 
 /**
  * 对比俩个字符串的相似度
  */
-@Log4j2
+@Slf4j
 public class StringImpl {
     //第一种实现方式
     private static String longestCommonSubstring(String strA, String strB) {

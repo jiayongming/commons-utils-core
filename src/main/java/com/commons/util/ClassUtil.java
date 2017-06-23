@@ -2,7 +2,7 @@ package com.commons.util;
 
 import com.commons.files.FilePathUtil;
 import com.commons.files.FileUtil;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +18,7 @@ import java.util.jar.JarFile;
  * <h6>Description:<h6>
  * <p>Java Class与反射相关的一些工具类</p>
  */
-@Log4j2
+@Slf4j
 public final class ClassUtil {
     /**
      * 获取类加载器

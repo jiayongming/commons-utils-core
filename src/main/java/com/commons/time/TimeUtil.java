@@ -1,6 +1,7 @@
 package com.commons.time;
 
 import com.commons.util.DefaultConfig;
+import lombok.extern.slf4j.Slf4j;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,6 +14,7 @@ import java.util.regex.Pattern;
  * @author:jiayongming
  * @Description:TimeUtil 提供一些常用的时间想法的方法
  */
+@Slf4j
 public final class TimeUtil {
 
     //日期时间类型格式

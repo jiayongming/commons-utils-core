@@ -4,7 +4,7 @@ import com.commons.util.Valid;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 
@@ -20,7 +20,7 @@ import java.util.*;
  * Map<--SortedMap<--TreeMap
  * Map<--HashMap
  */
-@Log4j2
+@Slf4j
 public class CollectionUtil {
 
     /**

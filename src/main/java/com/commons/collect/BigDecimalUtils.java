@@ -1,14 +1,14 @@
 package com.commons.collect;
 
+import com.google.common.base.Optional;
+import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
+
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 
-import com.google.common.base.Optional;
-import com.google.common.collect.Lists;
-import lombok.extern.log4j.Log4j2;
-
-@Log4j2
+@Slf4j
 public final class BigDecimalUtils {
 
 	private BigDecimalUtils() {
@@ -45,8 +45,7 @@ public final class BigDecimalUtils {
 		List<BigDecimal> newArrayList = Lists.newArrayList();
 		
 		BigDecimal avgBigDecimal = avgBigDecimal(newArrayList);
-		
-		log.info(avgBigDecimal);
+		log.info(avgBigDecimal.toString());
 	}
 
 }

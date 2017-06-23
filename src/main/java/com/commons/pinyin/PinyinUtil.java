@@ -1,7 +1,6 @@
 package com.commons.pinyin;
 
-import lombok.Cleanup;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
@@ -10,30 +9,19 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Enumeration;
 import java.util.Properties;
 
 /**
  * @author jiayongming 有关汉语拼音的工具类
  */
-@Log4j2
+@Slf4j
 public final class PinyinUtil {
-	private PinyinUtil(){}
-	/**
-	 * 静态初始化代码块中加载多音字信息
-	 */
-	private static Properties polyphone;
-	static {
-		polyphone = new Properties();
-		try {
-			@Cleanup InputStreamReader in = new InputStreamReader(Object.class.getResourceAsStream("/polyphone.properties"), "UTF-8");
-			polyphone.load(in);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
+	private PinyinUtil(){
+
 	}
+
 	/**
 	 * 全部小写字母
 	 */
@@ -47,7 +35,7 @@ public final class PinyinUtil {
 	 * @param hanzi
 	 * @return 传入汉字返回汉语拼音首字母 如果是英文字符，直接返回首字母 true 小写字母 false 大写字母
 	 */
-	public static String getFirstPinyin(String hanzi, boolean isLower) {
+	public static String getFirstPinyin(Properties polyphone,String hanzi, boolean isLower) {
 		Enumeration<?> enu = polyphone.propertyNames();
 		while(enu.hasMoreElements()){
 		    String key = (String)enu.nextElement();
@@ -125,8 +113,4 @@ public final class PinyinUtil {
 		return strBuf.toString();
 	}
 
-	public static void main(String[] args) {
-		String firstPinyin = getFirstPinyin("重庆银行",false);
-		log.info(firstPinyin);
-	}
 }

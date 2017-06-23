@@ -1,8 +1,7 @@
 package com.commons.files;
 
 import com.commons.util.Valid;
-import lombok.extern.log4j.Log4j;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.util.zip.ZipEntry;
@@ -13,7 +12,7 @@ import java.util.zip.ZipOutputStream;
 /**
  * 压缩文档相关的工具类
  */
-@Log4j2
+@Slf4j
 public final class ZIPUtil {
     /**
      * 文档压缩

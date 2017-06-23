@@ -2,7 +2,7 @@ package com.commons.image;
 
 import com.commons.files.FileUtil;
 import lombok.Cleanup;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReadParam;
@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @author adam.胡升阳
  */
-@Log4j2
+@Slf4j
 public final class OperateImage {
     // 图形交换格式
     public static String IMAGE_TYPE_GIF = "gif";
