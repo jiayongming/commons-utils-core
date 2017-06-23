@@ -69,7 +69,7 @@ public class FileTypeImpl {
         ) {
             is.read(b);
             filetype = getFileTypeByStream(b);
-            is.close();
+
         } catch (IOException e) {
             log.error("getFileType error:",e);
         }

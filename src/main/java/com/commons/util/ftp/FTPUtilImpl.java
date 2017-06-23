@@ -6,6 +6,7 @@ import com.commons.model.FTPVo;
 import com.commons.model.FileAttr;
 import com.commons.util.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
@@ -164,10 +165,8 @@ public class FTPUtilImpl implements FTPUtil {
     @Override
     public boolean putFile(File file, String remoteFileName, boolean isDelete) {
         String fileName = remoteFileName;
-        String path = "";
-        String parent = getParentPath(remoteFileName);
         if (remoteFileName.lastIndexOf("/") != -1) {
-            path = remoteFileName.substring(0, remoteFileName.lastIndexOf("/"));
+            String path = remoteFileName.substring(0, remoteFileName.lastIndexOf("/"));
             fileName = remoteFileName.substring(remoteFileName.lastIndexOf("/") + 1);
             mkDir(path);
             changeWorkDir(path);
@@ -276,18 +275,19 @@ public class FTPUtilImpl implements FTPUtil {
         }
         try {
             String[] str = (new String(directory.getBytes(vo.getRemoteEncoding()), "ISO-8859-1")).split("/");
-            String t = "";
-            String parnet = "";
+            StringBuilder t = new StringBuilder() ;
+            StringBuilder parnet = new StringBuilder() ;
             for (int i = 0; i < str.length; i++) {
-                t += ("/" + str[i]);
+                t.append("/") ;
+                t.append(str[i]) ;
                 if (!isExists(t.substring(1))) {
                     client.makeDirectory(str[i]);
                 }
                 client.changeWorkingDirectory(str[i]);
-                parnet += "../";
+                parnet.append("../") ;
             }
             if (str.length >= 1) {
-                client.changeWorkingDirectory(parnet);
+                client.changeWorkingDirectory(parnet.toString());
             }
 
         } catch (IOException e) {
@@ -337,8 +337,9 @@ public class FTPUtilImpl implements FTPUtil {
 
 
     private String getParentPath(String file) {
-        if (file.indexOf("/") != -1) {
-            String temp = null;
+
+        if ( StringUtils.contains(file,"/") ) {
+            String temp = null ;
             Pattern p = Pattern.compile("[/]+");
             Matcher m = p.matcher(file);
             int i = 0;
@@ -346,14 +347,15 @@ public class FTPUtilImpl implements FTPUtil {
                 temp = m.group(0);
                 i += temp.length();
             }
-            String parent = "";
+            StringBuilder parent = new StringBuilder() ;
             for (int j = 0; j < i; j++) {
-                parent += "../";
+                parent.append("../") ;
             }
-            return parent;
+            return parent.toString();
         } else {
             return "./";
         }
+
     }
 
 }

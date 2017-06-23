@@ -32,20 +32,21 @@ public final class ChinesUtil {
         format.setVCharType(HanyuPinyinVCharType.WITH_V);
 
         char[] input = inputString.trim().toCharArray();
-        String output = "";
+        StringBuilder output = new StringBuilder() ;
 
         try {
             for (int i = 0; i < input.length; i++) {
                 if (Character.toString(input[i]).matches("[\\u4E00-\\u9FA5]+")) {
                     String[] temp = PinyinHelper.toHanyuPinyinStringArray(input[i], format);
-                    output += temp[0];
-                } else
-                    output += Character.toString(input[i]);
+                    output.append(temp[0]) ;
+                } else {
+                    output.append( Character.toString(input[i]) ) ;
+                }
             }
         } catch (BadHanyuPinyinOutputFormatCombination e) {
             e.printStackTrace();
         }
-        return output;
+        return output.toString();
     }
 
     /**

@@ -1,7 +1,6 @@
 package com.commons.util;
 
 import com.google.common.collect.Maps;
-import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
@@ -84,17 +83,26 @@ public final class PropertiesUtil {
      * @param pValue   属性值
      */
     public static void writeProperties(String filePath, String pKey, String pValue) throws IOException {
-        Properties props = new Properties();
-        @Cleanup FileInputStream fis = new FileInputStream(filePath);
-        props.load(fis);
 
-        // 调用 Hashtable 的方法 put，使用 getProperty 方法提供并行性。
-        // 强制要求为属性的键和值使用字符串。返回值是 Hashtable 调用 put 的结果。
-        @Cleanup OutputStream fos = new FileOutputStream(filePath);
-        props.setProperty(pKey, pValue);
-        // 以适合使用 load 方法加载到 Properties 表中的格式，
-        // 将此 Properties 表中的属性列表（键和元素对）写入输出流
-        props.store(fos, "Update '" + pKey + "' value");
+        Properties props = new Properties();
+
+        try ( FileInputStream fis = new FileInputStream(filePath) ;
+              OutputStream fos = new FileOutputStream(filePath)
+        ){
+            /*fis = new FileInputStream(filePath);*/
+            props.load(fis);
+
+            // 调用 Hashtable 的方法 put，使用 getProperty 方法提供并行性。
+            // 强制要求为属性的键和值使用字符串。返回值是 Hashtable 调用 put 的结果。
+            /*fos = new FileOutputStream(filePath);*/
+            props.setProperty(pKey, pValue);
+            // 以适合使用 load 方法加载到 Properties 表中的格式，
+            // 将此 Properties 表中的属性列表（键和元素对）写入输出流
+            props.store(fos, "Update '" + pKey + "' value");
+
+        } catch ( Exception e ){
+            log.error("writeProperties error:", e);
+        }
 
     }
 

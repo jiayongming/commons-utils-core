@@ -167,12 +167,12 @@ public final class ConvertUtil {
     public final static String hexStringtoBinarg(String hexStr) {
         hexStr = hexStr.replaceAll("\\s", "").replaceAll("0x", "");
         char[] achar = hexStr.toCharArray();
-        String result = "";
+        StringBuilder result = new StringBuilder() ;
         for (char a : achar) {
-            result += Integer.toBinaryString(
-                    Integer.valueOf(String.valueOf(a), 16)) + " ";
+            result.append( Integer.toBinaryString(Integer.valueOf(String.valueOf(a), 16)) ) ;
+            result.append(" ") ;
         }
-        return result;
+        return result.toString();
     }
 
     /**
@@ -181,16 +181,17 @@ public final class ConvertUtil {
      * @param bytes bytes数组
      */
     public final static String bytesToHexString(byte[] bytes) {
-        String result = "";
+        StringBuilder result = new StringBuilder() ;
         String hex;
         for (byte b : bytes) {
             //字节高4位
             hex = String.valueOf(hexStr.charAt((b & 0xF0) >> 4));
             //字节低4位
             hex += String.valueOf(hexStr.charAt(b & 0x0F));
-            result += hex + " ";
+            result.append(hex) ;
+            result.append(" ") ;
         }
-        return result;
+        return result.toString();
     }
 
     /**

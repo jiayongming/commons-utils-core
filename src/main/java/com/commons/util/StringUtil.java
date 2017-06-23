@@ -4,7 +4,9 @@ import com.commons.util.algorithmImpl.BCConvert;
 import com.commons.util.algorithmImpl.StringImpl;
 
 import java.text.DecimalFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,18 +33,20 @@ public final class StringUtil {
      * @return 处理后的字符串
      */
     public  static String joinString(List list, String symbol) {
-        String result = "";
+        StringBuilder result = new StringBuilder() ;
         if (list != null) {
             for (Object o : list) {
                 String temp = o.toString();
-                if (temp.trim().length() > 0)
-                    result += (temp + symbol);
+                if (temp.trim().length() > 0){
+                    result.append(temp) ;
+                    result.append(symbol) ;
+                }
             }
             if (result.length() > 1) {
-                result = result.substring(0, result.length() - 1);
+                return result.substring(0, result.length() - 1);
             }
         }
-        return result;
+        return "";
     }
 
     /**
@@ -128,17 +132,19 @@ public final class StringUtil {
      * @return 处理后的字符串
      */
     public  static String joinString(String[] array, String symbol) {
-        String result = "";
+        StringBuilder result = new StringBuilder() ;
         if (array != null) {
             for (String temp : array) {
-                if (temp != null && temp.trim().length() > 0)
-                    result += (temp + symbol);
+                if (temp != null && temp.trim().length() > 0){
+                    result.append(temp) ;
+                    result.append(symbol) ;
+                }
             }
             if (result.length() > 1 && Valid.valid(symbol)) {
-                result = result.substring(0, result.length() - symbol.length());
+                return result.substring(0, result.length() - symbol.length());
             }
         }
-        return result;
+        return "";
     }
 
     /**
@@ -401,7 +407,7 @@ public final class StringUtil {
     /**
      * 字符串相似度比较(速度较快)
      */
-    public  static double SimilarDegree(String str1, String str2) {
+    public  static double similarDegree(String str1, String str2) {
         str1 = StringUtil.trimPunct(str1);
         str2 = StringUtil.trimPunct(str2);
         if (str1.length() > str2.length()) {

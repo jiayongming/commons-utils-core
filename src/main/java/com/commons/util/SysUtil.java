@@ -16,7 +16,7 @@ import java.util.List;
  * 提供些获取系统信息相关的工具方法
  */
 @Slf4j
-public class SysUtil {
+public final class SysUtil {
 
     /**
      * JVM的版本
@@ -121,7 +121,7 @@ public class SysUtil {
     /**
      * 已使用的物理内存
      */
-    public final static long usedMemory() {
+    public static long usedMemory() {
         if (Valid.valid(osmxb)) {
             return (osmxb.getTotalPhysicalMemorySize() - osmxb.getFreePhysicalMemorySize()) / kb;
         }
@@ -131,28 +131,28 @@ public class SysUtil {
     /**
      * 获取JVM内存总量
      */
-    public final static long JVMtotalMem() {
+    public static long jVMtotalMem() {
         return Runtime.getRuntime().totalMemory() / kb;
     }
 
     /**
      * 虚拟机空闲内存量
      */
-    public final static long JVMfreeMem() {
+    public static long JVMfreeMem() {
         return Runtime.getRuntime().freeMemory() / kb;
     }
 
     /**
      * 虚拟机使用最大内存量
      */
-    public final static long JVMmaxMem() {
+    public static long JVMmaxMem() {
         return Runtime.getRuntime().maxMemory() / kb;
     }
 
     /**
      * Sets HTTP proxy settings.
      */
-    public final static void setHttpProxy(String host, String port, String username, String password) {
+    public static void setHttpProxy(String host, String port, String username, String password) {
         System.getProperties().put(HTTP_PROXY_HOST, host);
         System.getProperties().put(HTTP_PROXY_PORT, port);
         System.getProperties().put(HTTP_PROXY_USER, username);
@@ -162,13 +162,9 @@ public class SysUtil {
     /**
      * Sets HTTP proxy settings.
      */
-    public final static void setHttpProxy(String host, String port) {
+    public static void setHttpProxy(String host, String port) {
         System.getProperties().put(HTTP_PROXY_HOST, host);
         System.getProperties().put(HTTP_PROXY_PORT, port);
-    }
-
-    public static void main(String[] args) {
-        log.debug(HOST_IP);
     }
 
 }
