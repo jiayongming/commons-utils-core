@@ -48,34 +48,35 @@ public class WriteExcel {
 	@Getter @Setter
 	private String encode = "UTF-8" ;
 
-	public void mainsssssss() {
+	public void readExcel() {
 
 		try {
 			final InputStream resourceAsStream = WriteExcel.class.getResourceAsStream(excelPath);
 			Workbook wb = WorkbookFactory.create(resourceAsStream);
 			int numberOfSheets = wb.getNumberOfSheets();
-			log.info("工作表个数为:" + numberOfSheets);
+			log.info("工作表个数为:{}" , numberOfSheets);
 
-			Sheet sheet = wb.getSheetAt(sheetOrder); // 第一个工作表
+			// 第一个工作表
+			Sheet sheet = wb.getSheetAt(sheetOrder);
 			// 获得总列数
 			int coloumNum = sheet.getRow(0).getPhysicalNumberOfCells();
-			log.info("获得总列数:" + coloumNum);
+			log.info("获得总列数:{}" , coloumNum);
 
 			// 获得总行数
 			int rowNum = sheet.getLastRowNum();
-			log.info("获得总行数:" + rowNum);
+			log.info("获得总行数:{}" , rowNum);
 
 			Map<String, String> bankEncrypt = Maps.newLinkedHashMapWithExpectedSize(400) ;
 			for (int i = 1; i <= rowNum ; i++) {
 				final String key = sheet.getRow(i).getCell(1).getStringCellValue();
 				final String value = sheet.getRow(i).getCell(2).getStringCellValue();
-				if (value.equalsIgnoreCase("是")){
+				if ("是".equalsIgnoreCase(value)){
 					int add = 1 ;
 
 					while(true){
 						if (i+add <= rowNum){
 							final String stringCellValue = sheet.getRow(i+add).getCell(2).getStringCellValue();
-							if (stringCellValue.equalsIgnoreCase("是")){
+							if ("是".equalsIgnoreCase(stringCellValue)){
 								bankEncrypt.put(key,sheet.getRow(i+add).getCell(1).getStringCellValue()) ;
 								break;
 							} else {
@@ -87,16 +88,16 @@ public class WriteExcel {
 						}
 					}
 
-				} else if (value.equalsIgnoreCase("否")){
+				} else if ("否".equalsIgnoreCase(value)){
 					int add = 1 ;
 					outer : while (true){
 						if (i+add <= rowNum){
 							final String stringCellValue = sheet.getRow(i+add).getCell(2).getStringCellValue();
-							if (stringCellValue.equalsIgnoreCase("是")){
+							if ("是".equalsIgnoreCase(stringCellValue)){
 								while(true){
 									if (i+add+1 <= rowNum){
 										final String stringCellValue1 = sheet.getRow(i+add+1).getCell(2).getStringCellValue();
-										if (stringCellValue1.equalsIgnoreCase("是")){
+										if ("是".equalsIgnoreCase(stringCellValue1)){
 											bankEncrypt.put(key,sheet.getRow(i+add+1).getCell(1).getStringCellValue()) ;
 											break outer ;
 										} else {
@@ -154,14 +155,14 @@ public class WriteExcel {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage() ,e);
 		}
 	}
 
 
 	public static void main(String[] args) {
 		final WriteExcel writeExcel = new WriteExcel();
-		writeExcel.mainsssssss();
+		writeExcel.readExcel();
 
 	}
 }
