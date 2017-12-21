@@ -144,14 +144,14 @@ public class WriteExcel {
 			ByteBuffer src = Charset.forName(encode).encode(content);
 
 			// 字节缓冲的容量和limit会随着数据长度变化，不是固定不变的
-			log.info("初始化容量和limit：" + src.capacity() + "," + src.limit());
+			log.info("初始化容量和limit：{},{}" , src.capacity() ,src.limit());
 			int length = 0;
 
 			while ((length = channel.write(src)) != 0) {
                 /*
                  * 注意，这里不需要clear，将缓冲中的数据写入到通道中后 第二次接着上一次的顺序往下读
                  */
-				log.info("写入长度:" + length);
+				log.info("写入长度:{}" , length);
 			}
 
 		} catch (Exception e) {
