@@ -4,8 +4,8 @@ package com.commons.image.GIF;
  * Created by jiayongming on 2016/4/23 0023.
  */
 public class Quant {
-    protected static final int netsize = 256; /* number of colours used */
-
+    
+    protected static final int NETSIZE = 256; /* number of colours used */
     /* four primes near 500 - assume no image has a length so large */
     /* that it is divisible by all four primes */
     protected static final int prime1 = 499;
@@ -31,7 +31,7 @@ public class Quant {
 	/* Network Definitions
        ------------------- */
 
-    protected static final int maxnetpos = (netsize - 1);
+    protected static final int maxnetpos = (NETSIZE - 1);
     protected static final int netbiasshift = 4; /* bias for colour values */
     protected static final int ncycles = 100; /* no. of learning cycles */
 
@@ -46,7 +46,7 @@ public class Quant {
             (intbias << (gammashift - betashift));
 
     /* defs for decreasing radius factor */
-    protected static final int initrad = (netsize >> 3); /* for 256 cols, radius starts */
+    protected static final int initrad = (NETSIZE >> 3); /* for 256 cols, radius starts */
     protected static final int radiusbiasshift = 6; /* at 32.0 biased by 6 bits */
     protected static final int radiusbias = (((int) 1) << radiusbiasshift);
     protected static final int initradius = (initrad * radiusbias); /* and decreases by a */
@@ -78,9 +78,9 @@ public class Quant {
     protected int[] netindex = new int[256];
 	/* for network lookup - really 256 */
 
-    protected int[] bias = new int[netsize];
+    protected int[] bias = new int[NETSIZE];
     /* bias and freq arrays for learning */
-    protected int[] freq = new int[netsize];
+    protected int[] freq = new int[NETSIZE];
     protected int[] radpower = new int[initrad];
 	/* radpower for precomputation */
 
@@ -95,24 +95,24 @@ public class Quant {
         lengthcount = len;
         samplefac = sample;
 
-        network = new int[netsize][];
-        for (i = 0; i < netsize; i++) {
+        network = new int[NETSIZE][];
+        for (i = 0; i < NETSIZE; i++) {
             network[i] = new int[4];
             p = network[i];
-            p[0] = p[1] = p[2] = (i << (netbiasshift + 8)) / netsize;
-            freq[i] = intbias / netsize; /* 1/netsize */
+            p[0] = p[1] = p[2] = (i << (netbiasshift + 8)) / NETSIZE;
+            freq[i] = intbias / NETSIZE; /* 1/netsize */
             bias[i] = 0;
         }
     }
 
     public byte[] colorMap() {
-        byte[] map = new byte[3 * netsize];
-        int[] index = new int[netsize];
-        for (int i = 0; i < netsize; i++) {
+        byte[] map = new byte[3 * NETSIZE];
+        int[] index = new int[NETSIZE];
+        for (int i = 0; i < NETSIZE; i++) {
             index[network[i][3]] = i;
         }
         int k = 0;
-        for (int i = 0; i < netsize; i++) {
+        for (int i = 0; i < NETSIZE; i++) {
             int j = index[i];
             map[k++] = (byte) (network[j][0]);
             map[k++] = (byte) (network[j][1]);
@@ -132,12 +132,12 @@ public class Quant {
 
         previouscol = 0;
         startpos = 0;
-        for (i = 0; i < netsize; i++) {
+        for (i = 0; i < NETSIZE; i++) {
             p = network[i];
             smallpos = i;
             smallval = p[1]; /* index on g */
 			/* find smallest in i..netsize-1 */
-            for (j = i + 1; j < netsize; j++) {
+            for (j = i + 1; j < NETSIZE; j++) {
                 q = network[j];
                 if (q[1] < smallval) { /* index on g */
                     smallpos = j;
@@ -274,12 +274,12 @@ public class Quant {
         i = netindex[g]; /* index on g */
         j = i - 1; /* start at netindex[g] and work outwards */
 
-        while ((i < netsize) || (j >= 0)) {
-            if (i < netsize) {
+        while ((i < NETSIZE) || (j >= 0)) {
+            if (i < NETSIZE) {
                 p = network[i];
                 dist = p[1] - g; /* inx key */
                 if (dist >= bestd) {
-                    i = netsize; /* stop iter */
+                    i = NETSIZE; /* stop iter */
                 } else {
                     i++;
                     if (dist < 0) {
@@ -348,7 +348,7 @@ public class Quant {
 
         int i, j;
 
-        for (i = 0; i < netsize; i++) {
+        for (i = 0; i < NETSIZE; i++) {
             network[i][0] >>= netbiasshift;
             network[i][1] >>= netbiasshift;
             network[i][2] >>= netbiasshift;
@@ -368,8 +368,8 @@ public class Quant {
             lo = -1;
         }
         hi = i + rad;
-        if (hi > netsize) {
-            hi = netsize;
+        if (hi > NETSIZE) {
+            hi = NETSIZE;
         }
 
         j = i + 1;
@@ -427,7 +427,7 @@ public class Quant {
         bestpos = -1;
         bestbiaspos = bestpos;
 
-        for (i = 0; i < netsize; i++) {
+        for (i = 0; i < NETSIZE; i++) {
             n = network[i];
             dist = n[0] - b;
             if (dist < 0) {

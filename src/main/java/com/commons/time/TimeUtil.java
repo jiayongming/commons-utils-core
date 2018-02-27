@@ -17,6 +17,8 @@ import java.util.regex.Pattern;
 @Slf4j
 public final class TimeUtil {
 
+    private static Pattern pattern = Pattern.compile("^\\d{2}:\\d{2}-\\d{2}:\\d{2}");
+
     //日期时间类型格式
     private static final String DATETIME_FORMAT = DefaultConfig.DATETIME_FORMAT;
 
@@ -685,8 +687,7 @@ public final class TimeUtil {
     public  static long subtimeBurst(Date startDate, Date endDate, String timeBurst)
             throws ParseException {
         long second = 0;
-        Pattern p = Pattern.compile("^\\d{2}:\\d{2}-\\d{2}:\\d{2}");
-        Matcher m = p.matcher(timeBurst);
+        Matcher m = pattern.matcher(timeBurst);
         boolean falg = false;
         if (startDate.after(endDate)) {
             Date temp = startDate;
@@ -791,8 +792,7 @@ public final class TimeUtil {
      * @Suumary 指定的格式错误后返回原数据
      */
     public  static Date calculate(Date date, int second, String timeBurst) {
-        Pattern p = Pattern.compile("^\\d{2}:\\d{2}-\\d{2}:\\d{2}");
-        Matcher m = p.matcher(timeBurst);
+        Matcher m = pattern.matcher(timeBurst);
         Calendar cal = Calendar.getInstance();
         if (m.matches()) {
             String[] a = timeBurst.split("-");

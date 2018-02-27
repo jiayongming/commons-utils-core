@@ -15,6 +15,8 @@ import java.util.regex.Pattern;
  */
 public final class StringUtil {
 
+    private static Pattern pattern = Pattern.compile("\\s*|\t|\r|\n");
+
     /**
      * 判断是否是空字符串 null和"" 都返回 true
      *
@@ -322,8 +324,7 @@ public final class StringUtil {
      */
     public  static String replaceBlank(String str) {
         if (str != null) {
-            Pattern p = Pattern.compile("\\s*|\t|\r|\n");
-            Matcher m = p.matcher(str);
+            Matcher m = pattern.matcher(str);
             str = m.replaceAll("");
         }
         return str;
