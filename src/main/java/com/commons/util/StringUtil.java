@@ -22,7 +22,7 @@ public final class StringUtil {
      * @return 是否有效
      */
     public  static boolean isEmpty(String str) {
-        return str == null || str.equals("");
+        return str == null || "".equals(str);
     }
 
     /**
@@ -156,8 +156,9 @@ public final class StringUtil {
     public  static String join(String linkStr,String ... strs){
         StringBuffer result = new StringBuffer();
             for (String temp : strs) {
-                if (temp != null && temp.trim().length() > 0)
+                if (temp != null && temp.trim().length() > 0) {
                     result.append(temp + linkStr);
+                }
             }
             if (result.length() > 1 && Valid.valid(linkStr)) {
                 return result.substring(0, result.length() - linkStr.length());
@@ -191,8 +192,9 @@ public final class StringUtil {
      */
     public  static String repeat(String src, int num) {
         StringBuilder s = new StringBuilder();
-        for (int i = 0; i < num; i++)
+        for (int i = 0; i < num; i++) {
             s.append(src);
+        }
         return s.toString();
     }
 

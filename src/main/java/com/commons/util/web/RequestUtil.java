@@ -204,8 +204,9 @@ public class RequestUtil {
             }
             // Delete the cookie by setting its maximum age to zero
             cookie.setMaxAge(0);
-            if (domain != null)
+            if (domain != null) {
                 cookie.setDomain(domain);
+            }
             cookie.setPath(path != null ? path : "/");
             response.addCookie(cookie);
         }

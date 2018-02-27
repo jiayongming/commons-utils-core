@@ -263,7 +263,7 @@ public final class RandomUtil {
      * @return
      */
     public static String squid() {
-        Long date = new Date().getTime();
+        long date = System.currentTimeMillis() ;
         String s = UUID.randomUUID().toString();
         String str = Long.toHexString(date);
         String result = str + DefaultConfig.HOST_FEATURE

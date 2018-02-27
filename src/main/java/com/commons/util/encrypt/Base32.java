@@ -85,6 +85,8 @@ public final class Base32 {
      */
     public final static String decode(final String base32) throws IllegalArgumentException {
         switch (base32.length() % 8) {
+            default:
+                break;
             case 1:
             case 3:
             case 6:
