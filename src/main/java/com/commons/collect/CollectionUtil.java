@@ -26,36 +26,29 @@ public class CollectionUtil {
     /**
      * 去重
      */
-    public final static <T> List<T> removeDuplicate(List<T> list) {
+    public static <T> List<T> removeDuplicate(List<T> list) {
 
         if (!Valid.valid(list)) {
             log.error("list is empty or is null");
-            return Lists.newArrayListWithCapacity(0);
+            return list;
         }
 
-        List newList = Lists.newArrayListWithCapacity(list.size()) ;
-        Set set = Sets.newHashSetWithExpectedSize(list.size()) ;
+        HashSet<T> set = Sets.newHashSet(list);
 
-        for (Iterator iter = list.iterator(); iter.hasNext(); ) {
-            Object element = iter.next();
-            if (set.add(element)){
-                newList.add(element);
-            }
-        }
-        return newList;
+        return Lists.newArrayList(set);
     }
 
 
     /**
      * 使用指定的Filter过滤集合
      */
-    public final static <T> List<T> filter(List<T> list, ListFilter filter) {
+    public static <T> List<T> filter(List<T> list, ListFilter<T> filter) {
         if (!Valid.valid(list)) {
             log.error("list is empty or is null");
             return Lists.newArrayListWithCapacity(0);
         }
 
-        List result = Lists.newArrayListWithCapacity(list.size());
+        List<T> result = Lists.newArrayListWithCapacity(list.size());
 
         for (T t : list) {
             if (filter.filter(t)) {
@@ -65,13 +58,13 @@ public class CollectionUtil {
         return result;
     }
 
-    public final static <T> Set<T> filter(Set<T> set, SetFilter filter) {
+    public static <T> Set<T> filter(Set<T> set, SetFilter<T> filter) {
         if (Valid.valid(set)) {
             log.error("list is empty or is null");
-            return Sets.newHashSetWithExpectedSize(0);
+            return set;
         }
 
-        Set result = Sets.newHashSetWithExpectedSize(set.size());
+        Set<T> result = Sets.newHashSetWithExpectedSize(set.size());
         for (T t : set) {
             if (filter.filter(t)) {
                 result.add(t);
@@ -80,12 +73,12 @@ public class CollectionUtil {
         return result;
     }
 
-    public final static <T> Queue filter(Queue<T> queue, QueueFilter filter) {
+    public static <T> Queue filter(Queue<T> queue, QueueFilter<T> filter) {
         if (Valid.valid(queue)) {
             log.error("queue is empty or is null");
             return Lists.newLinkedList();
         }
-        Queue result = Lists.newLinkedList();
+        Queue<T> result = Lists.newLinkedList();
         for (T t : queue) {
             if (filter.filter(t)) {
                 result.add(t);
@@ -94,13 +87,13 @@ public class CollectionUtil {
         return result;
     }
 
-    public final static <K, V> Map filter(Map<K, V> map, MapFilter filter) {
+    public static <K, V> Map filter(Map<K, V> map, MapFilter<Map.Entry<K, V>> filter) {
         if (Valid.valid(map)) {
             log.error("map is empty or is null");
             return Maps.newHashMapWithExpectedSize(0);
         }
 
-        Map result = Maps.newHashMapWithExpectedSize(map.size());
+        Map<K, V> result = Maps.newHashMapWithExpectedSize(map.size());
         for (Map.Entry<K, V> entry : map.entrySet()) {
             if (filter.filter(entry)) {
                 result.put(entry.getKey(), entry.getValue());
@@ -112,7 +105,7 @@ public class CollectionUtil {
     /**
      * 求俩个集合的交集
      */
-    public final static <T> List<T> intersection(List<T> list1, List<T> list2) {
+    public static <T> List<T> intersection(List<T> list1, List<T> list2) {
         if (Valid.valid(list1, list2)) {
             Set<T> set = Sets.newHashSet(list1) ;
             set.retainAll(list2);
@@ -121,7 +114,7 @@ public class CollectionUtil {
         return Lists.newArrayListWithCapacity(0);
     }
 
-    public final static <T> Set<T> intersection(Set<T> set1, Set<T> set2) {
+    public static <T> Set<T> intersection(Set<T> set1, Set<T> set2) {
         if (Valid.valid(set1, set2)) {
             List<T> list = Lists.newArrayList(set1);
             list.retainAll(set2);
@@ -130,7 +123,7 @@ public class CollectionUtil {
         return Sets.newHashSetWithExpectedSize(0);
     }
 
-    public final static <T> Queue<T> intersection(Queue<T> queue1, Queue<T> queue2) {
+    public static <T> Queue<T> intersection(Queue<T> queue1, Queue<T> queue2) {
         if (Valid.valid(queue1, queue2)) {
             Set<T> set = Sets.newHashSet(queue1);
             set.retainAll(queue2);
@@ -148,7 +141,7 @@ public class CollectionUtil {
      * @param <V>
      * @return
      */
-    public final static <K, V> Map<K, V> intersection(Map<K, V> map1, Map<K, V> map2) {
+    public static <K, V> Map<K, V> intersection(Map<K, V> map1, Map<K, V> map2) {
         Map<K, V> map = Maps.newHashMapWithExpectedSize(map1.size());
         if (Valid.valid(map1, map2)) {
             Set<K> setkey1 = Sets.newHashSet(map1.keySet());
@@ -166,7 +159,7 @@ public class CollectionUtil {
     /**
      * 求俩个集合的并集
      */
-    public final static <T> List<T> unicon(List<T> list1, List<T> list2) {
+    public static <T> List<T> unicon(List<T> list1, List<T> list2) {
         if (null == list1){
             list1 = Lists.newArrayListWithCapacity(0) ;
         }
@@ -179,7 +172,7 @@ public class CollectionUtil {
         return list;
     }
 
-    public final static <T> Set<T> unicon(Set<T> set1, Set<T> set2) {
+    public static <T> Set<T> unicon(Set<T> set1, Set<T> set2) {
         if (null == set1){
             set1= Sets.newHashSetWithExpectedSize(0) ;
         }
@@ -192,14 +185,14 @@ public class CollectionUtil {
         return set;
     }
 
-    public final static <T> Queue<T> unicon(Queue<T> queue1, Queue<T> queue2) {
+    public static <T> Queue<T> unicon(Queue<T> queue1, Queue<T> queue2) {
         Queue<T> queue = Lists.newLinkedList() ;
         queue.addAll(queue1);
         queue.addAll(queue2);
         return queue;
     }
 
-    public final static <K, V> Map<K, V> unicon(Map<K, V> map1, Map<K, V> map2) {
+    public static <K, V> Map<K, V> unicon(Map<K, V> map1, Map<K, V> map2) {
         if (null == map1){
             map1 = Maps.newHashMapWithExpectedSize(0);
         }
@@ -217,7 +210,7 @@ public class CollectionUtil {
     /**
      * 求俩个集合的差集
      */
-    public final static <T> List<T> subtract(List<T> list1, List<T> list2) {
+    public static <T> List<T> subtract(List<T> list1, List<T> list2) {
         if (null == list1){
             list1 = Lists.newArrayListWithCapacity(0);
         }
@@ -232,7 +225,7 @@ public class CollectionUtil {
         return list;
     }
 
-    public final static <T> Set<T> subtract(Set<T> set1, Set<T> set2) {
+    public static <T> Set<T> subtract(Set<T> set1, Set<T> set2) {
         if (null == set1){
             set1 = Sets.newHashSetWithExpectedSize(0);
         }
@@ -247,7 +240,7 @@ public class CollectionUtil {
         return set;
     }
 
-    public final static <T> Queue<T> subtract(Queue<T> queue1, Queue<T> queue2) {
+    public static <T> Queue<T> subtract(Queue<T> queue1, Queue<T> queue2) {
         Queue<T> queue = Lists.newLinkedList() ;
         if (Valid.valid(queue1)) {
             queue.addAll(queue1);
@@ -256,7 +249,7 @@ public class CollectionUtil {
         return queue;
     }
 
-    public final static <K, V> Map<K, V> subtract(Map<K, V> map1, Map<K, V> map2) {
+    public static <K, V> Map<K, V> subtract(Map<K, V> map1, Map<K, V> map2) {
         if (null == map1){
             map1 = Maps.newHashMapWithExpectedSize(0);
         }
@@ -280,16 +273,11 @@ public class CollectionUtil {
 
     /**
      * 将List以separator链接并以字符串的形式返回
-     *
-     * @param list
-     * @param separator
-     * @param <T>
-     * @return
      */
-    public final static <T> String join(List<T> list, String separator) {
+    public static <T> String join(List<T> list, String separator) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            sb.append(list.get(i).toString()).append(separator);
+        for (T aList : list) {
+            sb.append(aList.toString()).append(separator);
         }
         return sb.toString().substring(0, sb.toString().length() - 1);
     }
@@ -302,7 +290,7 @@ public class CollectionUtil {
      * @param <T>
      * @return
      */
-    public final static <T> String join(Queue<T> queue, String separator) {
+    public static <T> String join(Queue<T> queue, String separator) {
         StringBuilder sb = new StringBuilder();
         for (T t : queue) {
             sb.append(t.toString()).append(separator);
@@ -318,7 +306,7 @@ public class CollectionUtil {
      * @param <T>
      * @return
      */
-    public final static <T> String join(Set<T> set, String separator) {
+    public static <T> String join(Set<T> set, String separator) {
         StringBuilder sb = new StringBuilder();
         for (T t : set) {
             sb.append(t.toString()).append(separator);
@@ -331,7 +319,7 @@ public class CollectionUtil {
      *
      * @return
      */
-    public final static <K,V> String join(Map<K,V> map, String separator,String separator1) {
+    public static <K,V> String join(Map<K,V> map, String separator, String separator1) {
         if(map == null || map.size() == 0){
             return "";
         }
@@ -352,7 +340,7 @@ public class CollectionUtil {
      * @param <V>
      * @return
      */
-    public final static <K, V> String keyJoin(Map<K, V> map, String separator) {
+    public static <K, V> String keyJoin(Map<K, V> map, String separator) {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<K, V> entry : map.entrySet()) {
             sb.append(String.valueOf(entry.getKey())).append(separator);
@@ -369,7 +357,7 @@ public class CollectionUtil {
      * @param <V>
      * @return
      */
-    public final static <K, V> String valueJoin(Map<K, V> map, String separator) {
+    public static <K, V> String valueJoin(Map<K, V> map, String separator) {
         StringBuilder sb = new StringBuilder();
 
         for (Map.Entry<K, V> entry : map.entrySet()) {

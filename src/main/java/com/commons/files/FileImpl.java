@@ -115,8 +115,6 @@ public class FileImpl {
      * @param file 需要处理文件的编码
      * @param det  nsDetector
      * @return 返回文件编码
-     * @throws FileNotFoundException
-     * @throws IOException
      */
     private static String geestFileEncoding(File file, nsDetector det) {
         det.Init(new nsICharsetDetectionObserver() {

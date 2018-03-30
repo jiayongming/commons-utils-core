@@ -10,10 +10,10 @@ import lombok.Data;
 public class FTPLog {
     private String host;
     private String operation;
-    private int ReplyCode;
+    private int replyCode;
     private String localFile;
     private String remoteFile;
-    private String ReplyCodeDesc;
+    private String replyCodeDesc;
     private String createTime = TimeUtil.currentDateTime();
 
 }

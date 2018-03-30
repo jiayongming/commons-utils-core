@@ -38,21 +38,27 @@ public class Encoder {
     //              James A. Woods         (decvax!ihnp4!ames!jaw)
     //              Joe Orost              (decvax!vax135!petsd!joe)
 
-    int n_bits; // number of bits/code
-    int maxbits = BITS; // user settable max # bits/code
-    int maxcode; // maximum code, given n_bits
-    int maxmaxcode = 1 << BITS; // should NEVER generate this code
+    // maximum code, given n_bits
+    int maxcode;
+    // number of bits/code
+    int maxbits = BITS;
+    // user settable max # bits/code
+    int nBits;
+    // should NEVER generate this code
+    int maxmaxcode = 1 << BITS;
 
     int[] htab = new int[HSIZE];
     int[] codetab = new int[HSIZE];
 
-    int hsize = HSIZE; // for dynamic table sizing
+    // for dynamic table sizing
+    int hsize = HSIZE;
 
-    int free_ent = 0; // first unused entry
+    // first unused entry
+    int free_ent = 0;
 
     // block compression parameters -- after all codes are used up,
     // and compression rate changes, start over.
-    boolean clear_flg = false;
+    boolean clearFlg = false;
 
     // Algorithm:  use open addressing double hashing (no chaining) on the
     // prefix code / next character combination.  We do a variant of Knuth's
@@ -138,7 +144,7 @@ public class Encoder {
     void cl_block(OutputStream outs) throws IOException {
         cl_hash(hsize);
         free_ent = ClearCode + 2;
-        clear_flg = true;
+        clearFlg = true;
 
         output(ClearCode, outs);
     }
@@ -163,9 +169,9 @@ public class Encoder {
         g_init_bits = init_bits;
 
         // Set up the necessary values
-        clear_flg = false;
-        n_bits = g_init_bits;
-        maxcode = MAXCODE(n_bits);
+        clearFlg = false;
+        nBits = g_init_bits;
+        maxcode = MAXCODE(nBits);
 
         ClearCode = 1 << (init_bits - 1);
         EOFCode = ClearCode + 1;
@@ -274,7 +280,7 @@ public class Encoder {
             cur_accum = code;
         }
 
-        cur_bits += n_bits;
+        cur_bits += nBits;
 
         while (cur_bits >= 8) {
             char_out((byte) (cur_accum & 0xff), outs);
@@ -284,16 +290,16 @@ public class Encoder {
 
         // If the next entry is going to be too big for the code size,
         // then increase it, if possible.
-        if (free_ent > maxcode || clear_flg) {
-            if (clear_flg) {
-                maxcode = MAXCODE(n_bits = g_init_bits);
-                clear_flg = false;
+        if (free_ent > maxcode || clearFlg) {
+            if (clearFlg) {
+                maxcode = MAXCODE(nBits = g_init_bits);
+                clearFlg = false;
             } else {
-                ++n_bits;
-                if (n_bits == maxbits) {
+                ++nBits;
+                if (nBits == maxbits) {
                     maxcode = maxmaxcode;
                 } else {
-                    maxcode = MAXCODE(n_bits);
+                    maxcode = MAXCODE(nBits);
                 }
             }
         }

@@ -24,7 +24,7 @@ public class VersionCompare {
 				&& (diff = versionArray1[idx].compareTo(versionArray2[idx])) == 0) {// 再比较字符
 			++idx;
 		}
-		/**
+		/*
 		 * 如果已经分出大小，则直接返回，如果未分出大小，则再比较位数，有子版本的为大；
 		 */
 		diff = (diff != 0) ? diff : versionArray1.length - versionArray2.length;

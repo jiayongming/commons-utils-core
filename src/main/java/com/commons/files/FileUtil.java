@@ -22,10 +22,6 @@ import java.util.List;
  */
 @Slf4j
 public final class FileUtil {
-    /**
-     * Buffer的大小
-     */
-    private static Integer BUFFER_SIZE = 1024 * 1024 * 10;
 
     public static MessageDigest MD5 = null;
 
@@ -363,8 +359,11 @@ public final class FileUtil {
         ) {
             FileChannel in = fin.getChannel();
             FileChannel out = fout.getChannel();
-            //设定缓冲区
-            ByteBuffer buffer = ByteBuffer.allocate(BUFFER_SIZE);
+            /*
+                设定缓冲区、Buffer的大小
+            */
+            Integer bufferSize = 1024 * 1024 * 10;
+            ByteBuffer buffer = ByteBuffer.allocate(bufferSize);
             while (in.read(buffer) != -1) {
                 //准备写入，防止其他读取，锁住文件
                 buffer.flip();
@@ -386,7 +385,7 @@ public final class FileUtil {
      * @param file 需要处理的文件
      * @return UTF-8 Unicode UTF-16BE GBK
      */
-    public final static String simpleEncoding(String file) {
+    public static String simpleEncoding(String file) {
         try {
             return FileImpl.simpleEncoding(file);
         } catch (Exception e) {
@@ -401,7 +400,7 @@ public final class FileUtil {
      * @param paths 需要创建的目录
      * @return 是否成功
      */
-    public final static boolean createPaths(String paths) {
+    public static boolean createPaths(String paths) {
         File dir = new File(paths);
         return !dir.exists() && dir.mkdir();
     }
@@ -412,7 +411,7 @@ public final class FileUtil {
      * @param filePath 需要创建的文件
      * @return 是否成功
      */
-    public final static boolean createFiles(String filePath) {
+    public static boolean createFiles(String filePath) {
         File file = new File(filePath);
         File dir = file.getParentFile();
         if (!dir.exists()) {
@@ -433,7 +432,7 @@ public final class FileUtil {
      * @param file 需要处理的文件
      * @return 是否成功
      */
-    public final static boolean deleteFile(File file) {
+    public static boolean deleteFile(File file) {
         return file.delete();
     }
 
@@ -443,7 +442,7 @@ public final class FileUtil {
      * @param file 需要处理的文件
      * @return 是否成功
      */
-    public final static boolean deleteDir(File file) {
+    public static boolean deleteDir(File file) {
         List<File> files = listFileAll(file);
         if (Valid.valid(files)) {
             for (File f : files) {
@@ -464,7 +463,7 @@ public final class FileUtil {
      * @param file 需要处理的文件
      * @return 是否成功
      */
-    public final static boolean deleteBigFile(File file) {
+    public static boolean deleteBigFile(File file) {
         return cleanFile(file) && file.delete();
     }
 
@@ -475,7 +474,7 @@ public final class FileUtil {
      * @param filePath   需要处理的文件
      * @param targetPath 目标文件
      */
-    public final static void copyDir(String filePath, String targetPath) {
+    public static void copyDir(String filePath, String targetPath) {
         File file = new File(filePath);
         copyDir(file, targetPath);
     }
@@ -486,7 +485,7 @@ public final class FileUtil {
      * @param filePath   需要处理的文件
      * @param targetPath 目标文件
      */
-    public final static void copyDir(File filePath, String targetPath) {
+    public static void copyDir(File filePath, String targetPath) {
         File targetFile = new File(targetPath);
         if (!targetFile.exists()) {
             createPaths(targetPath);
@@ -510,7 +509,7 @@ public final class FileUtil {
      * @param path 需要处理的文件
      * @return 包含所有文件的的list
      */
-    public final static List<File> listFile(String path) {
+    public static List<File> listFile(String path) {
         File file = new File(path);
         return listFile(file);
     }
@@ -521,7 +520,7 @@ public final class FileUtil {
      * @param child 是否罗列子文件
      * @return 包含所有文件的的list
      */
-    public final static List<File> listFile(String path,boolean child){
+    public static List<File> listFile(String path, boolean child){
         return listFile(new File(path),child);
     }
 
@@ -532,7 +531,7 @@ public final class FileUtil {
      * @param path 需要处理的文件
      * @return 返回文件列表
      */
-    public final static List<File> listFile(File path) {
+    public static List<File> listFile(File path) {
         List<File> list = new ArrayList<>();
         File[] files = path.listFiles();
         if (Valid.valid(files)) {
@@ -553,7 +552,7 @@ public final class FileUtil {
      * @param child 是否罗列子目录
      * @return
      */
-    public final static List<File> listFile(File path,boolean child){
+    public static List<File> listFile(File path, boolean child){
         List<File> list = new ArrayList<>();
         File[] files = path.listFiles();
         if (Valid.valid(files)) {
@@ -574,7 +573,7 @@ public final class FileUtil {
      * @param path 需要处理的文件
      * @return 返回文件列表
      */
-    public final static List<File> listFileAll(File path) {
+    public static List<File> listFileAll(File path) {
         List<File> list = new ArrayList<>();
         File[] files = path.listFiles();
         if (Valid.valid(files)) {
@@ -595,7 +594,7 @@ public final class FileUtil {
      * @param filter 处理文件的filter
      * @return 返回文件列表
      */
-    public final static List<File> listFileFilter(File path, FilenameFilter filter) {
+    public static List<File> listFileFilter(File path, FilenameFilter filter) {
         List<File> list = new ArrayList<>();
         File[] files = path.listFiles();
         if (Valid.valid(files)) {
@@ -619,7 +618,7 @@ public final class FileUtil {
      * @param postfixs 文件后缀
      * @return 返回文件列表
      */
-    public final static List<File> listFileFilter(File dirPath, final String postfixs) {
+    public static List<File> listFileFilter(File dirPath, final String postfixs) {
         /*
         如果在当前目录中使用Filter讲只罗列当前目录下的文件不会罗列孙子目录下的文件
         FilenameFilter filefilter = new FilenameFilter() {
@@ -652,7 +651,7 @@ public final class FileUtil {
      * @param fileName 搜索的文件名
      * @return 返回文件列表
      */
-    public final static List<File> searchFile(File dirPath, String fileName) {
+    public static List<File> searchFile(File dirPath, String fileName) {
         List<File> list = new ArrayList<>();
         File[] files = dirPath.listFiles();
         if (Valid.valid(files)) {
@@ -677,7 +676,7 @@ public final class FileUtil {
      * @param reg     正则表达式
      * @return 返回文件列表
      */
-    public final static List<File> searchFileReg(File dirPath, String reg) {
+    public static List<File> searchFileReg(File dirPath, String reg) {
         List<File> list = new ArrayList<>();
         File[] files = dirPath.listFiles();
         if (Valid.valid(files)) {
@@ -701,8 +700,8 @@ public final class FileUtil {
      * @param file
      * @return
      */
-    public final static String suffix(File file){
-        String fileName=file.getName();
+    public static String suffix(File file){
+        String fileName = file.getName();
         return fileName.substring(fileName.indexOf(".")+1);
     }
 }
