@@ -25,7 +25,7 @@ public final class ChinesUtil {
      * @param inputString
      * @return
      */
-    public final static String getPingYin(String inputString) {
+    public static String getPingYin(String inputString) {
         HanyuPinyinOutputFormat format = new HanyuPinyinOutputFormat();
         format.setCaseType(HanyuPinyinCaseType.LOWERCASE);
         format.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
@@ -35,12 +35,12 @@ public final class ChinesUtil {
         StringBuilder output = new StringBuilder() ;
 
         try {
-            for (int i = 0; i < input.length; i++) {
-                if (Character.toString(input[i]).matches("[\\u4E00-\\u9FA5]+")) {
-                    String[] temp = PinyinHelper.toHanyuPinyinStringArray(input[i], format);
-                    output.append(temp[0]) ;
+            for (char anInput : input) {
+                if (Character.toString(anInput).matches("[\\u4E00-\\u9FA5]+")) {
+                    String[] temp = PinyinHelper.toHanyuPinyinStringArray(anInput, format);
+                    output.append(temp[0]);
                 } else {
-                    output.append( Character.toString(input[i]) ) ;
+                    output.append(Character.toString(anInput));
                 }
             }
         } catch (BadHanyuPinyinOutputFormatCombination e) {
@@ -55,16 +55,16 @@ public final class ChinesUtil {
      * @param chinese 汉字串
      * @return 汉语拼音首字母
      */
-    public final static String getFirstSpell(String chinese) {
+    public static String getFirstSpell(String chinese) {
         StringBuffer pybf = new StringBuffer();
         char[] arr = chinese.toCharArray();
         HanyuPinyinOutputFormat defaultFormat = new HanyuPinyinOutputFormat();
         defaultFormat.setCaseType(HanyuPinyinCaseType.LOWERCASE);
         defaultFormat.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] > 128) {
+        for (char anArr : arr) {
+            if (anArr > 128) {
                 try {
-                    String[] temp = PinyinHelper.toHanyuPinyinStringArray(arr[i], defaultFormat);
+                    String[] temp = PinyinHelper.toHanyuPinyinStringArray(anArr, defaultFormat);
                     if (temp != null) {
                         pybf.append(temp[0].charAt(0));
                     }
@@ -72,7 +72,7 @@ public final class ChinesUtil {
                     e.printStackTrace();
                 }
             } else {
-                pybf.append(arr[i]);
+                pybf.append(anArr);
             }
         }
         return pybf.toString().replaceAll("\\W", "").trim();
@@ -84,38 +84,43 @@ public final class ChinesUtil {
      * @param chinese 汉字串
      * @return 汉语拼音
      */
-    public final static String getFullSpell(String chinese) {
-        StringBuffer pybf = new StringBuffer();
+    public static String getFullSpell(String chinese) {
+        StringBuilder pybf = new StringBuilder();
         char[] arr = chinese.toCharArray();
         HanyuPinyinOutputFormat defaultFormat = new HanyuPinyinOutputFormat();
         defaultFormat.setCaseType(HanyuPinyinCaseType.LOWERCASE);
         defaultFormat.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] > 128) {
+        for (char anArr : arr) {
+            if (anArr > 128) {
                 try {
-                    pybf.append(PinyinHelper.toHanyuPinyinStringArray(arr[i], defaultFormat)[0]);
+                    pybf.append(PinyinHelper.toHanyuPinyinStringArray(anArr, defaultFormat)[0]);
                 } catch (BadHanyuPinyinOutputFormatCombination e) {
                     e.printStackTrace();
                 }
             } else {
-                pybf.append(arr[i]);
+                pybf.append(anArr);
             }
         }
         return pybf.toString();
     }
-
-
-    // 只能判断部分CJK字符（CJK统一汉字）
-    public final static boolean isChineseByREG(String str) {
+    /**
+     * 只能判断部分CJK字符（CJK统一汉字）
+     * @param str
+     * @return
+     */
+    public static boolean isChineseByREG(String str) {
         if (str == null) {
             return false;
         }
         Pattern pattern = Pattern.compile("[\\u4E00-\\u9FBF]+");
         return pattern.matcher(str.trim()).find();
     }
-
-    // 只能判断部分CJK字符（CJK统一汉字）
-    public final static boolean isChineseByName(String str) {
+    /**
+     * 只能判断部分CJK字符（CJK统一汉字）
+     * @param str
+     * @return
+     */
+    public static boolean isChineseByName(String str) {
         if (str == null) {
             return false;
         }
@@ -125,13 +130,14 @@ public final class ChinesUtil {
         Pattern pattern = Pattern.compile(reg);
         return pattern.matcher(str.trim()).find();
     }
-
-
-    // 完整的判断中文汉字和符号
-    public final static boolean isChinese(String strName) {
+    /**
+     * 完整的判断中文汉字和符号
+     * @param strName
+     * @return
+     */
+    public static boolean isChinese(String strName) {
         char[] ch = strName.toCharArray();
-        for (int i = 0; i < ch.length; i++) {
-            char c = ch[i];
+        for (char c : ch) {
             if (isChinese(c)) {
                 return true;
             }
@@ -145,7 +151,7 @@ public final class ChinesUtil {
      * @param c
      * @return
      */
-    public final static boolean isChinese(char c) {
+    public static boolean isChinese(char c) {
         Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
         if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A || ub == Character.UnicodeBlock.GENERAL_PUNCTUATION || ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION || ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS) {
             return true;
@@ -181,8 +187,7 @@ public final class ChinesUtil {
         char[] ch = temp.trim().toCharArray();
         float chLength = 0;
         float count = 0;
-        for (int i = 0; i < ch.length; i++) {
-            char c = ch[i];
+        for (char c : ch) {
             if (!Character.isLetterOrDigit(c)) {
                 if (!ChinesUtil.isChinese(c)) {
                     count = count + 1;
@@ -191,10 +196,6 @@ public final class ChinesUtil {
             }
         }
         float result = count / chLength;
-        if (result > 0.4) {
-            return true;
-        } else {
-            return false;
-        }
+        return result > 0.4;
     }
 }
