@@ -20,3 +20,4 @@ target
 .project
 .myeclipse
 .mymetadata
+/commons-utils-core.iml
